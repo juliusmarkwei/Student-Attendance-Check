@@ -39,23 +39,23 @@ class RFIDHandler:
         
     def store_data(self, uid):
         index = self.take_index_number()
-        print("Adding user to database\n")
-        sleep_ms(2000)
-        
         if not self.is_info_in_file(uid, index):
             with open("data/database.csv", "a") as f:
                 f.write(uid + " - " + index + "\n")
-            print("Added successfully")
-            sys.exit(0)
-        print("User already in database")
+                return "User already in database"
+        print("Added successfully")
+        
+
 
     def is_info_in_file(self, uid, index):
         f = open("data/database.csv", "w+")
         for line in f.readlines():
             data_id, data_index = line.split(" - ")
-            if data_id == uid and data_index == index:
+            if data_id == uid or data_index == index:
+                print("User already in database")
                 return True
         return False
+
 
     def remove_user_from_database(self, uid):
         print("Removing user from database!")
@@ -67,7 +67,7 @@ class RFIDHandler:
         with open("data/database.csv", "w+") as f:
             for line in lines:
                 data_id, data_index = line.split(" - ")
-                if data_id != uid and data_index != index:
+                if data_id != uid or data_index != index:
                     f.write(uid + " - " + index + "\n")
                 else:
                     user_removed = data_index
