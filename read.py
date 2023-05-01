@@ -42,7 +42,9 @@ class RFIDHandler:
         if not self.is_info_in_file(uid, index):
             with open("data/database.csv", "a") as f:
                 f.write(uid + " - " + index + "\n")
-                return "User already in database"
+                sleep_ms(2000)
+                print("\nUser already in database")
+                return
         print("Added successfully")
         
 
@@ -52,7 +54,6 @@ class RFIDHandler:
         for line in f.readlines():
             data_id, data_index = line.split(" - ")
             if data_id == uid or data_index == index:
-                print("User already in database")
                 return True
         return False
 
@@ -80,9 +81,9 @@ rfid_handler = RFIDHandler()
 uid = rfid_handler.read_rfid()
 
 # Store ID
-rfid_handler.store_data(uid)
+# rfid_handler.store_data(uid)
 
 # Remove ID
-# rfid_handler.remove_user_from_database(uid)
+rfid_handler.remove_user_from_database(uid)
 
 
