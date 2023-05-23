@@ -86,4 +86,3 @@ uid = rfid_handler.read_rfid()
 # Remove ID
 rfid_handler.remove_user_from_database(uid)
 
-
